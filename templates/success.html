@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">   
+        <h1>Thanks for passing me your e-mail address, {{ first_name }}. No spam guaranteed hehe</h1>
+    <ol>  
+    {% for subscriber in subscribers %}
+       <li> {{ subscriber }} </li>
+    {% endfor %}
+    </ol>  
+    </div> 
+{% endblock %}

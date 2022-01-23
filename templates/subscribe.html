@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">   
+        <h1>Welcome to my fake-subscription page</h1>
+        <form action="/success" method="POST">
+            <div class="mb-3">
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="First name" name='first_name'>
+            </div>
+            <div class="mb-3">
+
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Last name" name='second_name'>
+              </div>
+              <div class="mb-3">
+
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email address" name='email'>
+              </div>                          
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>        
+    </div> 
+{% endblock %}
+</html>
