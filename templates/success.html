@@ -1,12 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container">   
-        <h1>Thanks for passing me your e-mail address, {{ first_name }}. No spam guaranteed hehe</h1>
-    <ol>  
-    {% for subscriber in subscribers %}
-       <li> {{ subscriber }} </li>
-    {% endfor %}
-    </ol>  
+    <div class="container">
+        {% if error_statement %} 
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ error_statement }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}        
+        {% if not error_statement %}  
+            <h1>Welcome to my fake-subscription page</h1>
+        {% endif %}
+        <form action="/success" method="POST">
+            <div class="mb-3">
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="First name" name='first_name' value="{{ first_name }}">
+            </div>
+            <div class="mb-3">
+
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Last name" name='second_name' value="{{ second_name }}">
+              </div>
+              <div class="mb-3">
+
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email address" name='email' value="{{ email }}">
+              </div>                          
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>        
     </div> 
 {% endblock %}
+</html>

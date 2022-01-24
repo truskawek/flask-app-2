@@ -24,5 +24,11 @@ def success():
     first_name = request.form.get("first_name")
     second_name = request.form.get("second_name")
     email = request.form.get("email")
+    if not first_name or not second_name or not email:
+        error_statement = "You did not fill all the fields"
+        return render_template("success.html", error_statement = error_statement, first_name = first_name, second_name=second_name, email=email)
+
     subscribers.append(f"{first_name} {second_name} | {email}")
-    return render_template("success.html", title=title, subscribers=subscribers, first_name=first_name)    
+    return render_template("success.html", title=title, subscribers=subscribers)    
+
+
