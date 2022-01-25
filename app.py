@@ -13,9 +13,7 @@ class Friends(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
-    #create a function to reutrn a string when we add something
-    def __repr__(self):
-        return '<Name %r>' % self.id
+
 
 title = "Flask app v2"
 subscribers = []
