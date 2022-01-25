@@ -9,7 +9,7 @@
         </div>
         {% endif %}        
         {% if not error_statement %}  
-            <h1>Welcome to my fake-subscription page</h1>
+            <h1>Thanks for subscribing, {{ first_name_success }}</h1>
         {% endif %}
         <form action="/success" method="POST">
             <div class="mb-3">

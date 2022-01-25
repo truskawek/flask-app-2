@@ -1,6 +1,21 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///friends.db'
+#initialize the database
+db = SQLAlchemy(app)
+
+#create db model
+class Friends(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False)
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)
+    #create a function to reutrn a string when we add something
+    def __repr__(self):
+        return '<Name %r>' % self.id
 
 title = "Flask app v2"
 subscribers = []
@@ -29,6 +44,23 @@ def success():
         return render_template("success.html", error_statement = error_statement, first_name = first_name, second_name=second_name, email=email)
 
     subscribers.append(f"{first_name} {second_name} | {email}")
-    return render_template("success.html", title=title, subscribers=subscribers)    
+    return render_template("success.html", title=title, subscribers=subscribers, first_name_success=first_name)    
+
+@app.route('/friends', methods=['GET', 'POST'])
+def friends():
+
+    if request.method == 'POST':
+        friend_name = request.form.get("name")
+        new_friend = Friends(name=friend_name)
+        #push to database
+        try:
+            db.session.add(new_friend)
+            db.session.commit()
+            return redirect('/friends')
+        except:
+            return "There was an error"
+    else:
+        friends = Friends.query.order_by(Friends.date_created)
+        return render_template("friends.html", title=title, friends=friends)
 
 
