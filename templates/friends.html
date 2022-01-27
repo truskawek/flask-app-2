@@ -11,7 +11,8 @@
 
         <br/><br/>
         {% for friend in friends %}
-        {{ friend.id }} - {{ friend.name }} <br/>
+        {{ friend.id }} - {{ friend.name }} <a href="/update/{{friend.id}}" class="btn btn-outline-secondary btn-sm">Update</a> 
+                                            <a href="/delete/{{friend.id}}" class="btn btn-outline-danger btn-sm">Delete</a> <br/>
         {% endfor %}
     </div> 
 {% endblock %}

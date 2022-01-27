@@ -61,4 +61,25 @@ def friends():
         friends = Friends.query.order_by(Friends.date_created)
         return render_template("friends.html", title=title, friends=friends)
 
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update(id):
+    thing_to_update = Friends.query.get_or_404(id)
+    if request.method == 'POST':
+        thing_to_update.name = request.form.get("name")
+        try:
+            db.session.commit()
+            return redirect('/friends')
+        except:
+            return "There was a problem with updating the database"
+    else:
+        return render_template("update.html", thing_to_update=thing_to_update)
 
+@app.route('/delete/<int:id>')
+def delete(id):
+    thing_to_delete = Friends.query.get_or_404(id)
+    try:
+        db.session.delete(thing_to_delete)
+        db.session.commit()
+        return redirect('/friends')
+    except:
+        return "There was a problem with deleting the database"
